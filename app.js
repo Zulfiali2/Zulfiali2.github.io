@@ -9,6 +9,8 @@
   var catLabel = {}; D.categories.forEach(function (c) { catLabel[c.id] = c.label; });
   var host = function (u) { return u.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, ""); };
   var STATUS = { live: "Live", staging: "Staging", building: "In progress" };
+  // must match slug() in tools/screenshots.mjs
+  var slug = function (u) { return host(u).replace(/[^a-z0-9]+/gi, "-").toLowerCase(); };
 
   // Featured first, then live, then the rest
   var order = { live: 0, building: 1, staging: 2 };
@@ -30,19 +32,21 @@
     var h = HUE[p.cat] || "#3046FF";
     var initials = p.name.replace(/[^A-Za-z0-9& ]/g, "").split(" ").filter(Boolean).slice(0, 2).map(function (s) { return s[0]; }).join("");
     return '<div class="fallback" style="--hue:' + h + '"><div class="mono-mark">' + esc(initials) + '</div><div class="fb-lines"><i></i><i></i><i></i></div></div>' +
-      '<img alt="Screenshot of ' + esc(p.name) + '" loading="lazy" data-src="https://s.wordpress.com/mshots/v1/' + encodeURIComponent(p.url) + "?w=" + (w || 900) + '&h=' + Math.round((w || 900) * 0.75) + '">';
+      '<img alt="Homepage of ' + esc(p.name) + '" loading="lazy" decoding="async" data-src="shots/' + slug(p.url) + '.webp" data-live="https://s.wordpress.com/mshots/v1/' + encodeURIComponent(p.url) + "?w=" + (w || 900) + '&h=' + Math.round((w || 900) * 0.75) + '">';
   }
+  // 1) saved screenshot in shots/ (refreshed weekly by GitHub Actions) → 2) live WordPress mShots → 3) designed placeholder
   function loadShots(root) {
     root.querySelectorAll("img[data-src]").forEach(function (img) {
-      var src = img.getAttribute("data-src"); img.removeAttribute("data-src");
-      var tries = 0;
+      var local = img.getAttribute("data-src"), live = img.getAttribute("data-live"), stage = 0, tries = 0;
+      img.removeAttribute("data-src");
       img.onload = function () {
+        if (stage === 0) return img.classList.add("ok");
         // mShots returns a small placeholder while it generates; retry a couple of times
-        if (img.naturalWidth < 500 && tries < 2) { tries++; setTimeout(function () { img.src = src + "&r=" + tries; }, 5000); return; }
+        if (img.naturalWidth < 500 && tries < 2) { tries++; setTimeout(function () { img.src = live + "&r=" + tries; }, 5000); return; }
         if (img.naturalWidth >= 500) img.classList.add("ok");
       };
-      img.onerror = function () { img.remove(); };
-      img.src = src;
+      img.onerror = function () { if (stage === 0 && live) { stage = 1; img.src = live; } else img.remove(); };
+      img.src = local;
     });
   }
 
