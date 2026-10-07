@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Zulfiqar Ali Nasir · WordPress Developer</title>
+<meta name="description" content="Zulfiqar Ali Nasir, WordPress and Elementor developer in Islamabad. 25+ websites built for UK businesses: accountants, salons, fashion brands, builders and restaurants.">
+<meta property="og:title" content="Zulfiqar Ali Nasir · WordPress Developer">
+<meta property="og:description" content="25+ WordPress and Elementor websites for UK businesses. See the live work.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315172B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='800' font-size='17' fill='%23fff' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<!--APP-START-->
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top"><b>Z</b>Zulfiqar</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a><a href="#lab">Lab</a><a href="#journey">Journey</a><a href="#plan">Plan a site</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="iconbtn" id="open-palette" type="button" aria-label="Open quick search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search</span> <kbd id="kbd-hint">Ctrl K</kbd>
+    </button>
+    <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="status"><span class="dot"></span><span id="status-text">Open to new roles</span></span>
+        <h1 id="hero-name">Zulfiqar <span class="soft">Ali Nasir</span></h1>
+        <p class="lede" id="hero-lede"></p>
+        <div class="ctas">
+          <a class="btn primary" href="#work">See the live work</a>
+          <a class="btn ghost" href="#plan">Plan your website</a>
+          <span class="hint">or press <kbd>/</kbd> to jump anywhere</span>
+        </div>
+      </div>
+      <div class="stack-wrap">
+        <div class="browser hero-browser" id="hero-browser">
+          <div class="chrome">
+            <div class="lights"><i></i><i></i><i></i></div>
+            <div class="addr"><span class="lock">●</span><span id="hero-addr" class="host"></span><span class="caret"></span></div>
+          </div>
+          <div class="shot" id="hero-shot"></div>
+          <div class="progress"><i id="hero-progress"></i></div>
+          <div class="hero-meta"><div><b id="hero-site"></b> <span class="cat" id="hero-cat"></span></div><a class="mono" id="hero-open" href="#" style="font-size:13px;color:var(--accent);text-decoration:none">details →</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap"><div class="stats" id="stats"></div></div>
+    <div class="marquee" aria-label="Websites I have built"><div class="track" id="marquee"></div></div>
+  </section>
+
+  <section class="block" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Selected work</div><h2>Websites running for real businesses</h2></div>
+        <p>Every card is a site I built. Filter by industry, search by name, or open one for details and a link to the live site.</p>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="chips" role="group" aria-label="Filter by industry"></div>
+        <label class="search"><span class="sr">Search projects</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="search" type="search" placeholder="Search projects or domains">
+        </label>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="block" id="lab" style="background:var(--surface-2)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Lab</div><h2>Things I've built with code</h2></div>
+        <p>Beyond page builders: tools written in JavaScript, with the source on GitHub.</p>
+      </div>
+      <div class="lab" id="lab-list"></div>
+    </div>
+  </section>
+
+  <section class="block" id="journey">
+    <div class="wrap two">
+      <div>
+        <div class="eyebrow">Journey</div><h2 style="margin-bottom:36px">Experience and education</h2>
+        <ol class="tl" id="timeline"></ol>
+      </div>
+      <div>
+        <div class="eyebrow">Toolkit</div><h2 style="margin-bottom:36px">Skills</h2>
+        <div id="skills"></div>
+        <p class="langs" id="langs"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="plan" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Project planner</div><h2>Planning a website? Get a timeline.</h2></div>
+        <p>Choose what you need and see a rough build timeline. Then send me the brief in one click.</p>
+      </div>
+      <div class="planner">
+        <div class="p-form">
+          <div>
+            <div class="lbl">Type of website</div>
+            <div class="opts" id="p-type">
+              <button type="button" class="opt" data-v="landing" aria-pressed="false"><b>Landing page</b><span>One page, one goal</span></button>
+              <button type="button" class="opt" data-v="business" aria-pressed="true"><b>Business site</b><span>Services, about, contact</span></button>
+              <button type="button" class="opt" data-v="shop" aria-pressed="false"><b>Online shop</b><span>WooCommerce store</span></button>
+            </div>
+          </div>
+          <div>
+            <label class="lbl" for="p-pages">Number of pages <output id="p-pages-out">6</output></label>
+            <input type="range" id="p-pages" min="1" max="30" value="6">
+          </div>
+          <div>
+            <div class="lbl">Extras</div>
+            <div class="checks" id="p-extras">
+              <label><input type="checkbox" value="forms" checked> Contact &amp; lead forms</label>
+              <label><input type="checkbox" value="seo" checked> SEO setup</label>
+              <label><input type="checkbox" value="booking"> Online booking</label>
+              <label><input type="checkbox" value="blog"> Blog</label>
+              <label><input type="checkbox" value="tool"> Custom calculator or tool</label>
+              <label><input type="checkbox" value="lang"> Second language</label>
+              <label><input type="checkbox" value="content"> I need help with content</label>
+              <label><input type="checkbox" value="speed"> Speed optimisation</label>
+            </div>
+          </div>
+        </div>
+        <div class="p-out" aria-live="polite">
+          <div><div class="lbl">Estimated build time</div><div class="big" id="p-days">–</div></div>
+          <div class="phases" id="p-phases"></div>
+          <div class="ph-legend" id="p-legend"></div>
+          <div class="brief" id="p-brief"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn primary" id="p-send" href="#">Email me this brief</a>
+            <button class="btn ghost" id="p-copy" type="button">Copy brief</button>
+          </div>
+          <p class="p-note">A rough guide in working days. I confirm the real timeline after a short call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact" style="background:var(--surface-2)">
+    <div class="wrap contact">
+      <div>
+        <div class="eyebrow">Contact</div>
+        <h2>Let's build your next website.</h2>
+        <p class="lede" style="margin-top:16px" id="contact-lede"></p>
+      </div>
+      <div class="c-list" id="contact-list"></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© <span id="year"></span> Zulfiqar Ali Nasir</span><span>Hand-coded in HTML, CSS and JavaScript · Hosted on GitHub Pages</span></div></footer>
+
+<dialog id="modal" aria-label="Project details"></dialog>
+<dialog id="palette" aria-label="Quick search">
+  <div class="pal">
+    <input id="pal-input" type="text" placeholder="Search projects, sections and actions" autocomplete="off" aria-controls="pal-list">
+    <ul id="pal-list" role="listbox"></ul>
+    <div class="foot"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>Enter</kbd> open</span><span><kbd>Esc</kbd> close</span></div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+<!--APP-END-->
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
