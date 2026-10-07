@@ -1,12 +1,12 @@
-name: Update website screenshots
+name: Update screenshots and speed scores
 
 on:
-  workflow_dispatch: {}          # run by hand: Actions tab → "Update website screenshots" → Run workflow
+  workflow_dispatch: {}          # run by hand: Actions tab → "Update screenshots and speed scores" → Run workflow
   schedule:
     - cron: "0 3 * * 1"          # every Monday 03:00 UTC
   push:
     branches: [main]
-    paths: ["data.js", "tools/screenshots.mjs", ".github/workflows/screenshots.yml"]
+    paths: ["data.js", "tools/**", ".github/workflows/screenshots.yml"]
 
 permissions:
   contents: write
@@ -18,24 +18,28 @@ concurrency:
 jobs:
   capture:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install Playwright and sharp
+      - name: Install tools
         run: |
           npm init -y >/dev/null
-          npm install --no-save playwright@1.47.2 sharp@0.33.5
+          npm install --no-save playwright@1.47.2 sharp@0.33.5 lighthouse@12.2.1 chrome-launcher@1.1.2
           npx playwright install --with-deps chromium
-      - name: Capture screenshots
+      - name: Capture desktop and mobile screenshots
         run: node tools/screenshots.mjs
-      - name: Commit new screenshots
+      - name: Measure Lighthouse scores
+        continue-on-error: true
+        run: node tools/lighthouse.mjs
+      - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add shots
+          git add shots scores.json 2>/dev/null || git add shots
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Update website screenshots"
+          git commit -m "Update screenshots and speed scores"
+          git pull --rebase
           git push
