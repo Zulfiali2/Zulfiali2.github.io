@@ -66,16 +66,28 @@
     <div class="wrap">
       <div class="sec-head">
         <div><div class="eyebrow">Selected work</div><h2>Websites running for real businesses</h2></div>
-        <p>Every card is a site I built. Filter by industry, search by name, or open one for details and a link to the live site.</p>
+        <p>Every card is a site I built. Filter by industry, switch between desktop and mobile, or open one for details, speed scores and a link to the live site.<span id="score-summary"></span></p>
       </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by industry" style="margin-bottom:14px"></div>
       <div class="toolbar">
-        <div class="chips" id="chips" role="group" aria-label="Filter by industry"></div>
         <label class="search"><span class="sr">Search projects</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <input id="search" type="search" placeholder="Search projects or domains">
         </label>
+        <label class="sel"><span class="sr">Sort projects</span>
+          <select id="sort">
+            <option value="featured">Sort: Featured</option>
+            <option value="fastest">Sort: Fastest first</option>
+            <option value="az">Sort: A to Z</option>
+          </select>
+        </label>
+        <div class="seg" id="view" role="group" aria-label="Screen size">
+          <button type="button" data-v="desktop" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Desktop</button>
+          <button type="button" data-v="mobile" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>Mobile</button>
+        </div>
       </div>
       <div class="grid" id="grid"></div>
+      <div id="grid-more"></div>
     </div>
   </section>
 

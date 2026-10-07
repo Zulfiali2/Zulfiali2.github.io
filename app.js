@@ -28,11 +28,29 @@
   }
 
   /* ---------- screenshots (live via WordPress mShots, with a designed fallback) ---------- */
-  function shot(p, w) {
-    var h = HUE[p.cat] || "#3046FF";
+  function shot(p, w, mode) {
+    var h = HUE[p.cat] || "#3046FF", mob = mode === "mobile";
     var initials = p.name.replace(/[^A-Za-z0-9& ]/g, "").split(" ").filter(Boolean).slice(0, 2).map(function (s) { return s[0]; }).join("");
-    return '<div class="fallback" style="--hue:' + h + '"><div class="mono-mark">' + esc(initials) + '</div><div class="fb-lines"><i></i><i></i><i></i></div></div>' +
-      '<img alt="Homepage of ' + esc(p.name) + '" loading="lazy" decoding="async" data-src="shots/' + slug(p.url) + '.webp" data-live="https://s.wordpress.com/mshots/v1/' + encodeURIComponent(p.url) + "?w=" + (w || 900) + '&h=' + Math.round((w || 900) * 0.75) + '">';
+    var fb = '<div class="fallback" style="--hue:' + h + '"><div class="mono-mark">' + esc(initials) + '</div><div class="fb-lines"><i></i><i></i><i></i></div></div>';
+    if (mob) return '<div class="phone">' + fb + '<img alt="' + esc(p.name) + ' on a phone" loading="lazy" decoding="async" data-src="shots/m/' + slug(p.url) + '.webp"></div>';
+    return fb + '<img alt="Homepage of ' + esc(p.name) + '" loading="lazy" decoding="async" data-src="shots/' + slug(p.url) + '.webp" data-live="https://s.wordpress.com/mshots/v1/' + encodeURIComponent(p.url) + "?w=" + (w || 900) + '&h=' + Math.round((w || 900) * 0.75) + '">';
+  }
+
+  /* ---------- Lighthouse scores (scores.json, refreshed weekly by GitHub Actions) ---------- */
+  var SCORES = {};
+  var scoreOf = function (p) { return SCORES[slug(p.url)]; };
+  var grade = function (n) { return n == null ? "na" : n >= 90 ? "good" : n >= 50 ? "ok" : "low"; };
+  function scoreChips(p) {
+    var s = scoreOf(p); if (!s) return "";
+    return '<div class="scores" title="Google Lighthouse, desktop, tested ' + esc(s.tested) + '">' +
+      '<span class="sc ' + grade(s.performance) + '">⚡ ' + s.performance + '</span>' +
+      '<span class="sc ' + grade(s.seo) + '">SEO ' + s.seo + '</span>' +
+      '<span class="sc ' + grade(s.accessibility) + '">A11y ' + s.accessibility + "</span></div>";
+  }
+  function ring(label, n) {
+    var r = 26, c = 2 * Math.PI * r, k = n == null ? 0 : n / 100;
+    return '<div class="ring ' + grade(n) + '"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="' + r + '" class="trk"/>' +
+      '<circle cx="32" cy="32" r="' + r + '" class="val" stroke-dasharray="' + (c * k).toFixed(1) + " " + c.toFixed(1) + '"/></svg><b>' + (n == null ? "–" : n) + "</b><span>" + label + "</span></div>";
   }
   // 1) saved screenshot in shots/ (refreshed weekly by GitHub Actions) → 2) live WordPress mShots → 3) designed placeholder
   function loadShots(root) {
@@ -100,13 +118,21 @@
   $("#marquee").innerHTML = m + m.replace(/<a /g, '<a aria-hidden="true" tabindex="-1" ');
 
   /* ---------- work grid ---------- */
-  var filter = "all", query = "", visible = projects;
+  var filter = "all", query = "", sort = "featured", view = "desktop", visible = projects;
+  try { view = localStorage.getItem("view") || "desktop"; } catch (e) {}
   function chips() {
     var counts = { all: D.projects.length };
     D.projects.forEach(function (p) { counts[p.cat] = (counts[p.cat] || 0) + 1; });
     $("#chips").innerHTML = [{ id: "all", label: "All" }].concat(D.categories).map(function (c) {
       return '<button type="button" class="chip" data-f="' + c.id + '" aria-pressed="' + (filter === c.id) + '">' + esc(c.label) + " <span>" + (counts[c.id] || 0) + "</span></button>";
     }).join("");
+  }
+  function card(p, i) {
+    return '<button type="button" class="card' + (view === "mobile" ? " is-mobile" : "") + '" data-i="' + i + '" aria-label="' + esc(p.name) + ', open details">' +
+      '<div class="chrome"><div class="lights"><i></i><i></i><i></i></div><div class="addr"><span class="host">' + esc(host(p.url)) + "</span></div></div>" +
+      '<div class="shot">' + (p.featured ? '<span class="feat">Featured</span>' : "") + shot(p, 700, view) + "</div>" +
+      '<div class="card-body"><div class="card-top"><h3>' + esc(p.name) + '</h3><span class="badge ' + p.status + '">' + STATUS[p.status] + "</span></div>" +
+      "<p>" + esc(p.desc) + "</p>" + scoreChips(p) + "</div></button>";
   }
   function grid() {
     var q = query.toLowerCase().trim();
@@ -115,24 +141,34 @@
       if (!q) return true;
       return (p.name + " " + host(p.url) + " " + catLabel[p.cat] + " " + p.desc + " " + p.tech.join(" ")).toLowerCase().indexOf(q) > -1;
     });
-    var g = $("#grid");
-    if (!visible.length) { g.innerHTML = '<div class="empty">No projects match "' + esc(query) + '". Try another word, or clear the search.</div>'; return; }
-    g.innerHTML = visible.map(function (p, i) {
-      return '<button type="button" class="card" data-i="' + i + '" aria-label="' + esc(p.name) + ', open details">' +
-        '<div class="chrome"><div class="lights"><i></i><i></i><i></i></div><div class="addr"><span class="host">' + esc(host(p.url)) + "</span></div></div>" +
-        '<div class="shot">' + (p.featured ? '<span class="feat">Featured</span>' : "") + shot(p, 700) + "</div>" +
-        '<div class="card-body"><div class="card-top"><h3>' + esc(p.name) + '</h3><span class="badge ' + p.status + '">' + STATUS[p.status] + "</span></div>" +
-        "<p>" + esc(p.desc) + "</p></div></button>";
-    }).join("");
-    loadShots(g);
+    if (sort === "fastest") visible.sort(function (a, b) { var x = scoreOf(a), y = scoreOf(b); return (y ? y.performance : -1) - (x ? x.performance : -1); });
+    if (sort === "az") visible.sort(function (a, b) { return a.name.localeCompare(b.name); });
+    var g = $("#grid"), more = $("#grid-more");
+    if (!visible.length) { g.innerHTML = '<div class="empty">No projects match "' + esc(query) + '". Try another word, or clear the search.</div>'; more.innerHTML = ""; return; }
+    // Default view: live sites first, then staging and in-progress builds in their own group
+    var grouped = filter === "all" && !q && sort === "featured";
+    if (grouped) {
+      var main = visible.filter(function (p) { return p.status === "live"; }), rest = visible.filter(function (p) { return p.status !== "live"; });
+      visible = main.concat(rest);
+      g.innerHTML = main.map(card).join("");
+      more.innerHTML = rest.length ? '<div class="group-head"><h3>In progress and staging builds</h3><span>' + rest.length + ' sites built on test domains or still in development</span></div><div class="grid">' +
+        rest.map(function (p, i) { return card(p, main.length + i); }).join("") + "</div>" : "";
+    } else { g.innerHTML = visible.map(card).join(""); more.innerHTML = ""; }
+    loadShots(g); loadShots(more);
   }
   $("#chips").addEventListener("click", function (e) {
     var b = e.target.closest(".chip"); if (!b) return;
     filter = b.dataset.f; chips(); grid();
   });
   $("#search").addEventListener("input", function (e) { query = e.target.value; grid(); });
-  $("#grid").addEventListener("click", function (e) { var c = e.target.closest(".card"); if (c) openModal(+c.dataset.i, visible); });
-  chips(); grid();
+  $("#sort").addEventListener("change", function (e) { sort = e.target.value; grid(); });
+  function setView(v) {
+    view = v; try { localStorage.setItem("view", v); } catch (e) {}
+    document.querySelectorAll("#view button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.v === v); });
+    grid(); if (modal.open) renderModal();
+  }
+  $("#view").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) setView(b.dataset.v); });
+  ["#grid", "#grid-more"].forEach(function (s) { $(s).addEventListener("click", function (e) { var c = e.target.closest(".card"); if (c) openModal(+c.dataset.i, visible); }); });
 
   /* ---------- modal ---------- */
   var modal = $("#modal"), mList = [], mIdx = 0;
@@ -141,14 +177,17 @@
     if (!modal.open) { if (modal.showModal) modal.showModal(); else modal.setAttribute("open", ""); }
   }
   function renderModal() {
-    var p = mList[mIdx];
+    var p = mList[mIdx], s = scoreOf(p), mob = view === "mobile";
     modal.innerHTML = '<div class="modal" style="position:relative">' +
       '<button class="iconbtn m-close" type="button" data-act="close" aria-label="Close">✕</button>' +
-      '<div class="browser"><div class="chrome"><div class="lights"><i></i><i></i><i></i></div><div class="addr"><span class="lock">●</span><span class="host">' + esc(host(p.url)) + "</span></div></div>" +
-      '<div class="shot">' + shot(p, 1200) + "</div></div>" +
+      '<div class="browser' + (mob ? " is-mobile" : "") + '"><div class="chrome"><div class="lights"><i></i><i></i><i></i></div><div class="addr"><span class="lock">●</span><span class="host">' + esc(host(p.url)) + "</span></div>" +
+      '<div class="seg mini" role="group" aria-label="Screen size"><button type="button" data-act="desktop" aria-pressed="' + !mob + '">Desktop</button><button type="button" data-act="mobile" aria-pressed="' + mob + '">Mobile</button></div></div>' +
+      '<div class="shot">' + shot(p, 1200, view) + "</div></div>" +
       '<div class="m-body"><div><span class="badge ' + p.status + '">' + STATUS[p.status] + '</span></div><h3>' + esc(p.name) + "</h3>" +
       '<div class="mono" style="font-size:13px;color:var(--muted)">' + esc(catLabel[p.cat]) + "</div>" +
       "<p>" + esc(p.desc) + "</p>" +
+      (s ? '<div><div class="lbl">Google Lighthouse scores</div><div class="rings">' + ring("Performance", s.performance) + ring("Accessibility", s.accessibility) +
+        ring("Best practices", s.bestPractices) + ring("SEO", s.seo) + '</div><div class="mono" style="font-size:12px;color:var(--muted);margin-top:8px">Desktop test' + (s.lcp ? " · page loads in " + esc(s.lcp) : "") + " · checked " + esc(s.tested) + "</div></div>" : "") +
       (p.did ? '<div><div class="lbl">What I did</div><ul>' + p.did.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ul></div>" : "") +
       '<div><div class="lbl">Built with</div><div class="tags">' + p.tech.map(function (t) { return '<span class="tag">' + esc(t) + "</span>"; }).join("") + "</div></div>" +
       '<div class="m-actions"><a class="btn primary" href="' + esc(p.url) + '" target="_blank" rel="noopener">Visit site ↗</a>' +
@@ -159,15 +198,30 @@
   modal.addEventListener("click", function (e) {
     if (e.target === modal) return modal.close();
     var a = e.target.closest("[data-act]"); if (!a) return;
-    if (a.dataset.act === "close") modal.close();
-    if (a.dataset.act === "prev") { mIdx = (mIdx - 1 + mList.length) % mList.length; renderModal(); }
-    if (a.dataset.act === "next") { mIdx = (mIdx + 1) % mList.length; renderModal(); }
+    var act = a.dataset.act;
+    if (act === "close") modal.close();
+    if (act === "prev") { mIdx = (mIdx - 1 + mList.length) % mList.length; renderModal(); }
+    if (act === "next") { mIdx = (mIdx + 1) % mList.length; renderModal(); }
+    if (act === "desktop" || act === "mobile") setView(act);
   });
   document.addEventListener("keydown", function (e) {
     if (!modal.open) return;
     if (e.key === "ArrowLeft") { mIdx = (mIdx - 1 + mList.length) % mList.length; renderModal(); }
     if (e.key === "ArrowRight") { mIdx = (mIdx + 1) % mList.length; renderModal(); }
   });
+
+  chips(); setView(view);
+  fetch("scores.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (s) {
+    SCORES = s || {}; grid(); if (modal.open) renderModal(); scoreStat();
+  }).catch(function () {});
+
+  // One-line summary of average scores across live sites
+  function scoreStat() {
+    var live = D.projects.filter(function (p) { return p.status === "live" && scoreOf(p); });
+    if (live.length < 3) return;
+    var avg = function (k) { return Math.round(live.reduce(function (s, p) { return s + (scoreOf(p)[k] || 0); }, 0) / live.length); };
+    $("#score-summary").textContent = " Across " + live.length + " live sites, the average Google Lighthouse SEO score is " + avg("seo") + " and accessibility is " + avg("accessibility") + ".";
+  }
 
   /* ---------- lab ---------- */
   var snippets = [

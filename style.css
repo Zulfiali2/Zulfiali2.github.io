@@ -266,3 +266,51 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- v2: view switch, sort, phone frames, scores ---------- */
+.toolbar{justify-content:flex-start}
+.seg{display:inline-flex;gap:3px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;color:var(--muted);font:500 14px var(--body);padding:7px 12px;border-radius:9px;cursor:pointer}
+.seg button svg{width:16px;height:16px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg.mini{padding:2px;border-radius:8px;flex:none}
+.seg.mini button{font:500 11.5px var(--mono);padding:4px 8px;border-radius:6px}
+.sel select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border-radius:12px;padding:10px 34px 10px 14px;font:500 14.5px var(--body);color:var(--ink);cursor:pointer}
+@media (max-width:700px){.toolbar .seg{flex:1}.toolbar .seg button{flex:1;justify-content:center}.sel{flex:1}.sel select{width:100%}}
+
+/* phone frame inside a shot */
+.is-mobile .shot{background:linear-gradient(160deg,var(--surface-2),var(--bg));display:grid;place-items:center}
+.phone{position:relative;height:92%;aspect-ratio:9/19.5;max-width:100%;border-radius:22px;border:5px solid var(--ink);background:var(--surface);overflow:hidden;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);margin-top:6%}
+.phone::before{content:"";position:absolute;top:5px;left:50%;transform:translateX(-50%);width:34%;height:9px;border-radius:9px;background:var(--ink);z-index:2}
+.phone .fallback{padding:14px}
+.phone .fallback .mono-mark{font-size:30px}
+.phone img{object-position:top}
+.card.is-mobile .shot{aspect-ratio:3/2}
+.card.is-mobile:hover .shot img.ok{transform:none}
+.modal .is-mobile .shot{aspect-ratio:4/3}
+.modal .is-mobile .phone{height:94%;border-radius:28px;border-width:6px}
+.modal .chrome{flex-wrap:nowrap}
+
+/* score chips on cards */
+.scores{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.sc{font:600 11.5px var(--mono);padding:3px 7px;border-radius:6px;background:var(--surface-2);color:var(--muted)}
+.sc.good{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.sc.ok{color:var(--warn);background:color-mix(in srgb,var(--warn) 13%,transparent)}
+.sc.low{color:#D93838;background:color-mix(in srgb,#D93838 12%,transparent)}
+
+/* score rings in modal */
+.rings{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ring{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .trk{stroke:var(--surface-2)}
+.ring .val{stroke-linecap:round;stroke:var(--muted)}
+.ring.good .val{stroke:var(--ok)}.ring.ok .val{stroke:var(--warn)}.ring.low .val{stroke:#D93838}
+.ring b{position:absolute;top:0;height:64px;display:grid;place-items:center;font:700 17px var(--display);font-variant-numeric:tabular-nums}
+.ring span{font-size:11.5px;color:var(--muted);line-height:1.25}
+
+/* staging group */
+.group-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:56px 0 20px;padding-top:24px;border-top:1px dashed var(--line)}
+.group-head h3{font:700 22px var(--display);letter-spacing:-.02em;margin:0}
+.group-head span{color:var(--muted);font-size:14.5px}
