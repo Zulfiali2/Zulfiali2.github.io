@@ -1,0 +1,8 @@
+# Only needed if you deploy with the Wrangler command line (npx wrangler deploy).
+# Deploying through the Cloudflare dashboard? Follow worker/README.md instead.
+name = "ask-zulfiqar"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[ai]
+binding = "AI"

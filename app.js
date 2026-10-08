@@ -321,6 +321,7 @@
   var commands = [
     { k: "Go to", t: "Work", run: go("work") }, { k: "Go to", t: "Lab", run: go("lab") }, { k: "Go to", t: "Experience and skills", run: go("journey") },
     { k: "Go to", t: "Plan a website", run: go("plan") }, { k: "Go to", t: "Contact", run: go("contact") },
+    { k: "Action", t: "Ask a question about me (AI chat)", run: function () { if (window.AskMe) window.AskMe.open(); } },
     { k: "Action", t: "Copy my email address", run: function () { copy(P.email, "Email copied"); } },
     { k: "Action", t: "Switch light or dark theme", run: toggleTheme },
     { k: "Action", t: "Open LinkedIn", run: function () { window.open(P.linkedin, "_blank", "noopener"); } },

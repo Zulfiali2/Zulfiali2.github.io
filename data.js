@@ -124,4 +124,18 @@ window.PORTFOLIO = {
   ],
 
   languages: ["English (professional)", "Urdu (native)"],
+
+  /* "Ask about me" chat. Leave endpoint empty for Quick answers mode.
+     After setting up the Cloudflare Worker (worker/README.md), paste its /chat address here. */
+  chat: {
+    endpoint: "",
+    questions: [
+      "Has he built WooCommerce stores?",
+      "What is his work experience?",
+      "Which of his sites are fastest?",
+      "Show me his accounting firm websites",
+      "Is he available to hire?",
+      "How can I contact him?",
+    ],
+  },
 };
