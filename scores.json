@@ -1,75 +1,75 @@
 {
   "rossmckinley-com": {
-    "performance": 74,
+    "performance": 65,
     "accessibility": 85,
     "bestPractices": 96,
     "seo": 85,
-    "lcp": "1.3 s",
-    "tested": "2026-10-26"
+    "lcp": "1.8 s",
+    "tested": "2026-11-02"
   },
   "faaccountants-com": {
-    "performance": 91,
+    "performance": 70,
     "accessibility": 93,
     "bestPractices": 74,
     "seo": 100,
-    "lcp": "1.7 s",
-    "tested": "2026-10-26"
+    "lcp": "3.5 s",
+    "tested": "2026-11-02"
   },
   "fiscalfocusaccountantsltd-uk": {
-    "performance": 88,
+    "performance": 79,
     "accessibility": 80,
     "bestPractices": 96,
     "seo": 77,
-    "lcp": "1.7 s",
-    "tested": "2026-10-26"
+    "lcp": "2.3 s",
+    "tested": "2026-11-02"
   },
   "whiteweaveraccountants-com": {
-    "performance": 96,
+    "performance": 84,
     "accessibility": 89,
     "bestPractices": 74,
     "seo": 100,
-    "lcp": "1.3 s",
-    "tested": "2026-10-26"
+    "lcp": "2.3 s",
+    "tested": "2026-11-02"
   },
   "medtaxadvisors-co-uk": {
-    "performance": 82,
+    "performance": 76,
     "accessibility": 88,
     "bestPractices": 100,
-    "seo": 85,
-    "lcp": "2.3 s",
-    "tested": "2026-10-26"
+    "seo": 92,
+    "lcp": "2.8 s",
+    "tested": "2026-11-02"
   },
   "pacifichorizon-ae": {
-    "performance": 81,
+    "performance": 77,
     "accessibility": 93,
     "bestPractices": 74,
     "seo": 100,
     "lcp": "2.9 s",
-    "tested": "2026-10-26"
+    "tested": "2026-11-02"
   },
   "aqftrading-co-uk": {
-    "performance": 78,
+    "performance": 65,
     "accessibility": 91,
     "bestPractices": 96,
     "seo": 100,
-    "lcp": "2.7 s",
-    "tested": "2026-10-26"
+    "lcp": "2.8 s",
+    "tested": "2026-11-02"
   },
   "cubelinelondonltd-co-uk": {
-    "performance": 91,
+    "performance": 82,
     "accessibility": 86,
     "bestPractices": 100,
     "seo": 77,
-    "lcp": "1.7 s",
-    "tested": "2026-10-26"
+    "lcp": "1.8 s",
+    "tested": "2026-11-02"
   },
   "gloryfashion-co-uk": {
-    "performance": 77,
+    "performance": 71,
     "accessibility": 87,
     "bestPractices": 100,
     "seo": 92,
-    "lcp": "3.2 s",
-    "tested": "2026-10-26"
+    "lcp": "3.1 s",
+    "tested": "2026-11-02"
   },
   "naseergarments-com": {
     "performance": 96,
@@ -77,87 +77,87 @@
     "bestPractices": 96,
     "seo": 54,
     "lcp": "1.1 s",
-    "tested": "2026-10-26"
+    "tested": "2026-11-02"
   },
   "silvervictoryfashion-com": {
-    "performance": 63,
+    "performance": 62,
     "accessibility": 82,
     "bestPractices": 79,
     "seo": 85,
-    "lcp": "23.1 s",
-    "tested": "2026-10-26"
+    "lcp": "23.4 s",
+    "tested": "2026-11-02"
   },
   "ayuraholisticwellness-co-uk": {
-    "performance": 66,
+    "performance": 65,
     "accessibility": 78,
     "bestPractices": 100,
     "seo": 77,
-    "lcp": "5.2 s",
-    "tested": "2026-10-26"
+    "lcp": "5.4 s",
+    "tested": "2026-11-02"
   },
   "ridleybeautyzone-co-uk": {
-    "performance": 69,
+    "performance": 66,
     "accessibility": 89,
     "bestPractices": 100,
     "seo": 85,
-    "lcp": "7.0 s",
-    "tested": "2026-10-26"
+    "lcp": "7.1 s",
+    "tested": "2026-11-02"
   },
   "lolassaloon-tasneemkausar-com": {
-    "performance": 91,
+    "performance": 81,
     "accessibility": 91,
     "bestPractices": 100,
     "seo": 77,
-    "lcp": "1.8 s",
-    "tested": "2026-10-26"
+    "lcp": "2.1 s",
+    "tested": "2026-11-02"
   },
   "hairport-aqftrading-co-uk": {
-    "performance": 90,
+    "performance": 84,
     "accessibility": 86,
     "bestPractices": 100,
     "seo": 85,
-    "lcp": "1.6 s",
-    "tested": "2026-10-26"
+    "lcp": "1.8 s",
+    "tested": "2026-11-02"
   },
   "biters-aqftrading-co-uk": {
-    "performance": 87,
+    "performance": 69,
     "accessibility": 75,
-    "bestPractices": 74,
+    "bestPractices": 78,
     "seo": 85,
-    "lcp": "1.9 s",
-    "tested": "2026-10-26"
+    "lcp": "2.4 s",
+    "tested": "2026-11-02"
   },
   "smokeyyard-co-uk": {
-    "performance": 65,
+    "performance": 62,
     "accessibility": 92,
     "bestPractices": 78,
     "seo": 85,
-    "lcp": "4.2 s",
-    "tested": "2026-10-26"
+    "lcp": "4.9 s",
+    "tested": "2026-11-02"
   },
   "jdconsortiumltd-uk": {
-    "performance": 75,
+    "performance": 73,
     "accessibility": 88,
-    "bestPractices": 96,
+    "bestPractices": 78,
     "seo": 85,
-    "lcp": "3.4 s",
-    "tested": "2026-10-26"
+    "lcp": "3.6 s",
+    "tested": "2026-11-02"
   },
   "abldesignandbuild-co-uk": {
-    "performance": 86,
-    "accessibility": 89,
+    "performance": 66,
+    "accessibility": 95,
     "bestPractices": 96,
     "seo": 92,
-    "lcp": "1.9 s",
-    "tested": "2026-10-26"
+    "lcp": "4.4 s",
+    "tested": "2026-11-02"
   },
   "unionwindows-co-uk": {
     "performance": 79,
     "accessibility": 90,
     "bestPractices": 100,
     "seo": 92,
-    "lcp": "2.3 s",
-    "tested": "2026-10-26"
+    "lcp": "2.1 s",
+    "tested": "2026-11-02"
   },
   "elitcurtains-aqftrading-co-uk": {
     "performance": 85,
@@ -168,35 +168,35 @@
     "tested": "2026-10-08"
   },
   "globallinkconsultants-uk": {
-    "performance": 96,
+    "performance": 86,
     "accessibility": 88,
     "bestPractices": 93,
     "seo": 92,
-    "lcp": "1.3 s",
-    "tested": "2026-10-26"
+    "lcp": "1.6 s",
+    "tested": "2026-11-02"
   },
   "nexusmansfield-com": {
-    "performance": 96,
+    "performance": 84,
     "accessibility": 91,
     "bestPractices": 79,
     "seo": 92,
-    "lcp": "1.3 s",
-    "tested": "2026-10-26"
+    "lcp": "1.7 s",
+    "tested": "2026-11-02"
   },
   "thetyresegham-co-uk": {
-    "performance": 80,
+    "performance": 83,
     "accessibility": 91,
     "bestPractices": 100,
     "seo": 100,
-    "lcp": "3.2 s",
-    "tested": "2026-10-26"
+    "lcp": "2.7 s",
+    "tested": "2026-11-02"
   },
   "smartechhub-tasneemkausar-com": {
-    "performance": 92,
+    "performance": 75,
     "accessibility": 97,
     "bestPractices": 100,
     "seo": 100,
-    "lcp": "1.3 s",
-    "tested": "2026-10-26"
+    "lcp": "2.4 s",
+    "tested": "2026-11-02"
   }
 }
